@@ -6,24 +6,36 @@ import matplotlib.pyplot as plt
 def str2float(lst):
 	return np.array([float(i) for i in lst])
 
+#Funcion para contar el numero de datos por columna
+#Si encuentra espacio vaio, el programa lo ignora
+def size_Num(array):
+	n2 = array.size
+	n3 = 0
+	
+	for i in range(0,n2):
+	   if array[i] != '':
+	      n3 += 1
+	return n3
+
 #Se pide el nombre de archivo 
 print("Nombre de archivo de los datos con extension: ", end="")
-name = str(input())
-#name = "caidaLibre.csv"
+#name = str(input())
+name = "CaidaLibre2.csv"
 print("Delimitador de campo: ", end="")
-delimiter = str(input())
-#delimiter = ""
+#delimiter = str(input())
+delimiter = ","
 print("# de linea de inicio de datos: ", end="")
-sLine = int(input())
-#sLine = ""
+#sLine = int(input())
+sLine = 1
 
 fileData = np.loadtxt(name,dtype=str, delimiter=delimiter, skiprows = sLine)
 
 #x_exp = np.array([float(i) for i in fileData[:,0]])
 #y_exp = np.array([float(i) for i in fileData[:,1]])
-x_exp = str2float(fileData[:,0])
-y_exp = str2float(fileData[:,1])
-n = x_exp.size
+n = size_Num(fileData[:,0])
+x_exp = str2float(fileData[:n,0])
+y_exp = str2float(fileData[:n,1])
+
 
 ##########Ajuste Lineal de los datos##########
 #calculo de la pendiente y el intercepto
